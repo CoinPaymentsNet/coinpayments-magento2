@@ -15,6 +15,7 @@ use Magento\Framework\UrlInterface;
 use Magento\Sales\Model\Order;
 use Coinpayments\CoinPayments\Logger\Logger;
 use Coinpayments\CoinPayments\Model\Api\Rate as ApiRate;
+use Magento\Checkout\Model\Session;
 
 class Transaction extends Base
 {
@@ -24,6 +25,9 @@ class Transaction extends Base
     protected $_logger;
     /* @var ApiRate */
     protected $_rate;
+
+    /* @var \Magento\Checkout\Model\Session */
+    protected $_checkoutSession;
 
     /**
      * Transaction constructor.
@@ -38,13 +42,15 @@ class Transaction extends Base
         ScopeConfigInterface $scopeConfig,
         UrlInterface $urlBuilder,
         Logger $logger,
-        ApiRate $rate
+        ApiRate $rate,
+        Session $checkoutSession
     )
     {
         $this->_urlBuilder = $urlBuilder;
         $this->_logger = $logger;
         $this->_rate = $rate;
         parent::__construct($curl, $scopeConfig);
+        $this->_checkoutSession = $checkoutSession;
     }
 
     /**
@@ -58,7 +64,7 @@ class Transaction extends Base
         $data = [
             'amount' => $this->_rate->getConverted($customerCurrency, $order->getBaseGrandTotal()),
             'currency1' => $customerCurrency,
-            'currency2' => $this->getPaymentConfig('receive_currency'),
+            'currency2' => $this->getTransactionCurrency(),//$this->getPaymentConfig('receive_currency'),
             'buyer_email' => $order->getCustomerEmail(),
             'buyer_name' => $order->getCustomerFirstname() . ' ' . $order->getCustomerLastname(),
             'invoice' => $order->getIncrementId(),
@@ -69,5 +75,10 @@ class Transaction extends Base
         $data = $this->sendRequest($data, 'create_transaction', $headers, 'post', false);
         $this->_logger->info('ORDER ' . $order->getId() . ' transaction response: ' . print_r($data, true));
         return $data;
+    }
+    
+    public function getTransactionCurrency()
+    {
+        return $this->_checkoutSession->getCoinpaymentsCurrency();
     }
 }

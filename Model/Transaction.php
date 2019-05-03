@@ -47,9 +47,10 @@ class Transaction implements TransactionInterface
         if (!$order->getId() && !$quote->getId()) {
             return false;
         }
-        $data = $this->_apiTransaction->create($order, $currency);
+
         $this->_checkoutSession->setCoinpaymentsCurrency($currency);
         $this->_checkoutSession->setCoinpaymentsCurrencyTotal($value);
+        $data = $this->_apiTransaction->create($order, $currency);
         $this->_checkoutSession->setCoinpaymentsTransactionData(json_encode($data));
         return true;
     }
