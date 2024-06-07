@@ -130,9 +130,6 @@ define(
                 }
                 return [{error: "error"}];
             },
-            getPaymentAcceptanceMarkSrc: function () {
-                return window.checkoutConfig.payment.coinpayments.logo;
-            },
             getIsDirect: function () {
                 return window.checkoutConfig.payment.coinpayments.direct_mode;
             },
