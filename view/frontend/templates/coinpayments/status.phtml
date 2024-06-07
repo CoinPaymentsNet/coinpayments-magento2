@@ -4,8 +4,8 @@ $currency = $block->getTransactionCurrency();
 ?>
 
 <div class="checkout-success">
-    <p>Your order # is: <span><?php echo $block->getLastOrderIncrementId(); ?></span>.</p>
-    <p>We'll email you an order confirmation with details and tracking info.</p>
+    <p><?php echo __('Your order # is'); ?> <span><?php echo $block->getLastOrderIncrementId(); ?></span>.</p>
+    <p><?php echo __('Please scan the QR code below to make your payment using cryptocurrency. Once your payment has been confirmed your order will be processed.'); ?></p>
     <?php if ($transactionData->error == 'ok') : ?>
         <h3><a href="<?php echo $transactionData->result->status_url; ?>" target="_blank">Status link</a></h3>
         <div>
