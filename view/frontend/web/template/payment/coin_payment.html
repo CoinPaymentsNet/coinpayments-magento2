@@ -22,7 +22,7 @@
         <!--/ko-->
         <div class="payment-method-note">
             <span data-bind="ifnot: getIsDirect()">
-                <!-- ko template: 'Coinpayments_CoinPayments/payment/coin_payment_message' --><!-- /ko -->
+                <!-- ko template: 'Coinpayments_CoinPayments/payment/coin_payment_message' --><!-- /ko -->
             </span>
             <form
                 class="form"
@@ -32,7 +32,7 @@
                 method="post"
                 data-bind="if: getIsDirect()"
             >
-                <!-- ko template: 'Coinpayments_CoinPayments/payment/coin_payment_form' --><!-- /ko -->     
+                <!-- ko template: 'Coinpayments_CoinPayments/payment/coin_payment_form' --><!-- /ko -->
             </form>
         </div>
         <div class="checkout-agreements-block">
