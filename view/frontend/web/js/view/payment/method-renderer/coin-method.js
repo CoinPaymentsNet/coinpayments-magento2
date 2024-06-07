@@ -237,7 +237,7 @@ define(
                             window.location.replace(redirect);
                         }
                     },
-                    error: function (err) {
+                    error: function (error) {
                         console.log(error);
                         if (redirect) {
                             window.location.replace(redirect);
