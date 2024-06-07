@@ -56,7 +56,8 @@ class Transaction extends Base
     public function create($order, $customerCurrency, $headers = [])
     {
         $data = [
-            'amount' => $this->_rate->getConverted($customerCurrency, $order->getBaseGrandTotal()),
+            //'amount' => $this->_rate->getConverted($customerCurrency, $order->getBaseGrandTotal()),
+            'amount' => $order->getBaseGrandTotal(),
             'currency1' => $this->getPaymentConfig('receive_currency'),
             'currency2' => $customerCurrency,
             'buyer_email' => $order->getCustomerEmail(),
