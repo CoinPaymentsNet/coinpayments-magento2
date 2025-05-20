@@ -1,5 +1,3 @@
-> NOTICE: Migrated to [CoinPaymentsNet/plugin-magento](https://github.com/CoinPaymentsNet/plugin-magento).
-
 <h2>Download</h2>
 Grab the latest version by clicking the Releases tab. Then come back here for installation instructions.
 <h2>Overview</h2>

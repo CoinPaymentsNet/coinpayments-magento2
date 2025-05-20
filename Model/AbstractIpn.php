@@ -141,6 +141,14 @@ class AbstractIpn
     protected function updateOrderPayment()
     {
         if ($this->filterPaymentStatus($this->_data->status) == Info::PAYMENT_STATUS_COMPLETE) {
+            if (strcasecmp($this->_data->currency1, $this->_currentOrder->getOrderCurrencyCode())) {
+                $this->logAndDie("Create transaction error. OrderId: " . $this->_currentOrder->getId() . "\n. Message: Invalid payment currency.");
+                die("Invalid payment currency.");
+            }
+            if (floatval($this->_data->amount1) < $this->_currentOrder->getGrandTotal()) {
+                $this->logAndDie("Create transaction error. OrderId: " . $this->_currentOrder->getId() . "\n. Message: Invalid payment amount.");
+                die("Invalid payment amount.");
+            }
             $this->_currentOrder->setTotalPaid($this->_data->amount1);
         }
         return $this;
